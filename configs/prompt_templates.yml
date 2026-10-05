@@ -1,0 +1,14 @@
+
+templates:
+  scoring_rubric: |
+    Evaluate the following text based on LICA dimensions: L, I, C, A.
+    L: Logic
+    I: Insight
+    C: Coherence
+    A: Accuracy
+    Please provide a score from 1-5 for each.
+
+  model_prompts:
+    gpt_4o: "You are an expert evaluator. Rubric: {rubric}"
+    claude_3_5_sonnet: "Act as an academic rater. Rubric: {rubric}"
+    gemini_1_5_pro: "Score this essay strictly using the LICA framework. Rubric: {rubric}"

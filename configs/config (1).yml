@@ -1,0 +1,19 @@
+
+project:
+  name: LICA LLM Benchmark
+  version: 1.0.0
+
+paths:
+  raw_data: data/essays_dataset.csv
+  score_matrix: data/lica_raw_score_matrix.csv
+  gold_standard: data/essays_dataset_with_gold.csv
+
+analysis:
+  alpha_level: 0.05
+  bootstrap_iterations: 1000
+  dimensions: ['L', 'I', 'C', 'A']
+  rater_names: ['human', 'gpt_4o', 'claude_3_5_sonnet', 'gemini_1_5_pro']
+
+visuals:
+  dpi: 300
+  export_format: pdf

@@ -1,0 +1,5 @@
+criterion,Fleiss_Kappa,n_raters,n_essays
+language,0.805194805194805,3,5
+ideas,0.625,3,5
+cohesion,0.7794117647058822,3,5
+appropriateness,0.512987012987013,3,5

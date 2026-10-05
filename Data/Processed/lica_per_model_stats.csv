@@ -1,0 +1,13 @@
+model,criterion,MAE,QWK,mean_pred,mean_gold,bias_pred_minus_gold,sd_diff,n
+GPT-4o,language,0.0,1.0,2.6,2.6,0.0,0.0,5
+GPT-4o,ideas,0.0,1.0,2.6,2.6,0.0,0.0,5
+GPT-4o,cohesion,0.0,1.0,2.8,2.8,0.0,0.0,5
+GPT-4o,appropriateness,0.0,1.0,3.0,3.0,0.0,0.0,5
+Claude 3.5 Sonnet,language,0.0,1.0,2.6,2.6,0.0,0.0,5
+Claude 3.5 Sonnet,ideas,0.0,1.0,2.6,2.6,0.0,0.0,5
+Claude 3.5 Sonnet,cohesion,0.2,0.9230769230769231,3.0,2.8,0.2,0.44721359549995804,5
+Claude 3.5 Sonnet,appropriateness,0.2,0.9090909090909091,3.2,3.0,0.2,0.44721359549995804,5
+Gemini 1.5 Pro,language,0.2,0.946236559139785,2.4,2.6,-0.2,0.447213595499958,5
+Gemini 1.5 Pro,ideas,0.4,0.9038461538461539,2.2,2.6,-0.4,0.5477225575051662,5
+Gemini 1.5 Pro,cohesion,0.0,1.0,2.8,2.8,0.0,0.0,5
+Gemini 1.5 Pro,appropriateness,0.4,0.8333333333333334,2.6,3.0,-0.4,0.5477225575051662,5

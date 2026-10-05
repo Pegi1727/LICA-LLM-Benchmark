@@ -1,0 +1,39 @@
+name: Reproducibility Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-and-reproduce:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+        cache: 'pip'
+
+    - name: Install Python Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install numpy pandas scipy scikit-learn statsmodels matplotlib seaborn pingouin
+
+    - name: Verify Dataset Integrity
+      run: |
+        python -c "import pandas as pd; df = pd.read_csv('data/lica_raw_score_matrix.csv'); print(f'Loaded matrix: {df.shape[0]} rows, {df.shape[1]} columns'); assert df.shape[0] == 20, 'Expected 20 evaluation rows'"
+
+    - name: Run Master Python Reproducibility Pipeline
+      run: |
+        python scripts_py/20_reproducibility_pipeline_runner.py
+
+    - name: Validate Figures Generation
+      run: |
+        python -c "import os; assert os.path.exists('Figures/Figure1_Accuracy_Heatmap.png') or os.path.exists('Figure1_Accuracy_Heatmap.png'), 'Figure generation check passed'"

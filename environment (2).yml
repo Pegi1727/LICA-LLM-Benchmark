@@ -1,0 +1,18 @@
+
+name: lica-benchmark
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - scipy
+  - scikit-learn
+  - statsmodels
+  - pingouin
+  - matplotlib
+  - seaborn
+  - jupyter
+  - pandas
+  - numpy
+  - pyyaml
+  - pytest
+  - dvc

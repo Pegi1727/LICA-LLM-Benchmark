@@ -1,0 +1,23 @@
+
+stages:
+  preprocess:
+    cmd: python scripts/preprocess.py data/essays_dataset.csv
+    deps:
+      - data/essays_dataset.csv
+      - scripts/preprocess.py
+    outs:
+      - data/processed_data.csv
+  compute_metrics:
+    cmd: python scripts/compute_metrics.py data/lica_raw_score_matrix.csv
+    deps:
+      - data/lica_raw_score_matrix.csv
+      - scripts/compute_metrics.py
+    metrics:
+      - metrics/scores.json
+  generate_figures:
+    cmd: python scripts/plot_results.py
+    deps:
+      - data/lica_raw_score_matrix.csv
+      - scripts/plot_results.py
+    plots:
+      - plots/correlation_matrix.png

@@ -1,0 +1,7 @@
+
+site_name: LICA LLM Benchmark Documentation
+theme: readthedocs
+nav:
+  - Home: index.md
+  - Methodology: methodology.md
+  - API Reference: api.md

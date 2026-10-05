@@ -1,0 +1,10 @@
+
+cff-version: 1.2.0
+title: LICA LLM Benchmark
+message: If you use this software, please cite it as below.
+authors:
+  - family-names: Merrikhi
+    given-names: Pegah
+type: software
+version: 1.0.0
+date-released: 2024-05-22

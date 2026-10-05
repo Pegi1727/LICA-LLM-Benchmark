@@ -1,10 +1,24 @@
-
 cff-version: 1.2.0
-title: LICA LLM Benchmark
-message: If you use this software, please cite it as below.
+message: "If you use this benchmark, dataset, or code, please cite it as below."
 authors:
-  - family-names: Merrikhi
-    given-names: Pegah
-type: software
-version: 1.0.0
-date-released: 2024-05-22
+  - family-names: "Merrikhi"
+    given-names: "Pegah"
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+    affiliation: "Independent Researcher"
+    email: "pegah.merrikhiii@gmail.com"
+title: "Preliminary Psychometric Calibration of Large Language Models for Multidimensional L2 Academic Writing Assessment: The LICA Framework"
+version: "v1.0"
+doi: "10.5281/zenodo.23168595"
+date-released: "2026-10-05"
+url: "https://github.com/Pegi1727/LICA-LLM-Benchmark"
+repository-code: "https://github.com/Pegi1727/LICA-LLM-Benchmark"
+keywords:
+  - "L2 Academic Writing"
+  - "Large Language Models"
+  - "LICA Framework"
+  - "Psychometric Calibration"
+  - "Automated Essay Scoring"
+  - "GPT-4o"
+  - "Claude 3.5 Sonnet"
+  - "Gemini 1.5 Pro"
+license: "MIT"

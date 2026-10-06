@@ -1,12 +1,10 @@
-name: Verify Environment
-  run: |
-    echo "Zenodo DOI: 10.5281/zenodo.23168595"
-    python -c "print('Environment successfully verified.')"
+name: LICA Reproducibility Check
+
 on:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
   pull_request:
-    branches: [ main, master ]
+    branches: [main, master]
   workflow_dispatch:
 
 jobs:
@@ -14,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out repository code
+      - name: Check out repository
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -22,11 +20,50 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Verify Reproducibility Environment
+      - name: Verify repository files
+        run: |
+          echo "Checking LICA repository structure..."
+
+          test -f environment.yml
+          test -f README.md
+          test -f LICENSE
+          test -f "CITATION .cff"
+
+          test -d Data || test -d data
+          test -d Figures
+          test -d Notebooks || test -d notebooks
+          test -d Scripts || test -d scripts_py
+
+          echo "Repository structure verified."
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pandas numpy scipy scikit-learn statsmodels matplotlib seaborn openpyxl jupyter
+
+      - name: Verify Python environment
+        run: |
+          python --version
+          python -c "import pandas; print('pandas OK')"
+          python -c "import numpy; print('numpy OK')"
+          python -c "import scipy; print('scipy OK')"
+          python -c "import sklearn; print('scikit-learn OK')"
+          python -c "import statsmodels; print('statsmodels OK')"
+          python -c "import matplotlib; print('matplotlib OK')"
+
+      - name: Verify reproducibility pipeline
+        run: |
+          test -f scripts_py/20_reproducibility_pipeline_runner.py
+          echo "Python reproducibility pipeline found."
+
+      - name: Run reproducibility pipeline
+        run: |
+          python scripts_py/20_reproducibility_pipeline_runner.py
+
+      - name: Final verification
         run: |
           echo "====================================================="
-          echo "LICA Psychometric Benchmark Reproducibility Pipeline"
+          echo "LICA PSYCHOMETRIC BENCHMARK"
+          echo "REPRODUCIBILITY CHECK: PASSED"
           echo "Zenodo DOI: 10.5281/zenodo.23168595"
-          echo "Status: PASSED"
           echo "====================================================="
-          python -c "print('Environment, metadata, and directory structure successfully verified.')"

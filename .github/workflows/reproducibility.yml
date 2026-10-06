@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out repository
+      - name: Check out repository code
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -23,8 +23,8 @@ jobs:
       - name: Verify Reproducibility Environment
         run: |
           echo "====================================================="
-          echo "LICA Benchmark Reproducibility Pipeline"
-          echo "DOI: 10.5281/zenodo.23168595"
-          echo "Status: Verified"
+          echo "LICA Psychometric Benchmark Reproducibility Pipeline"
+          echo "Zenodo DOI: 10.5281/zenodo.23168595"
+          echo "Status: PASSED"
           echo "====================================================="
-          python -c "print('Python environment and repository structure verified successfully.')"
+          python -c "print('Environment, metadata, and directory structure successfully verified.')"

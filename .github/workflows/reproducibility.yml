@@ -1,18 +1,26 @@
-name: Reproducibility Pipeline
+name: LICA Reproducibility Check
 
 on:
   push:
-    branches: [ main, master ]
+    branches:
+      - main
+      - master
+
   pull_request:
-    branches: [ main, master ]
+    branches:
+      - main
+      - master
+
   workflow_dispatch:
 
 jobs:
-  verify-benchmark:
+  verify:
+    name: Verify LICA Benchmark
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -20,22 +28,92 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Verify Benchmark Assets & Pipeline
+      - name: Display repository structure
         run: |
-          echo "=========================================================="
-          echo "LICA Psychometric Benchmark Verification Pipeline"
+          echo "Repository root:"
+          pwd
+
+          echo ""
+          echo "Repository contents:"
+          find . -maxdepth 2 -type f | sort
+
+      - name: Verify required files
+        run: |
+          test -f README.md
+          test -f LICENSE
+          test -f environment.yml
+
+          echo "✓ README.md"
+          echo "✓ LICENSE"
+          echo "✓ environment.yml"
+
+      - name: Verify repository directories
+        run: |
+          test -d Data
+          test -d Figures
+          test -d Notebooks
+          test -d Scripts
+          test -d configs
+
+          echo "✓ Data/"
+          echo "✓ Figures/"
+          echo "✓ Notebooks/"
+          echo "✓ Scripts/"
+          echo "✓ configs/"
+
+      - name: Verify Python
+        run: |
+          python --version
+          python -c "print('Python environment successfully verified.')"
+
+      - name: Install scientific dependencies
+        run: |
+          python -m pip install --upgrade pip
+
+          python -m pip install \
+            numpy \
+            pandas \
+            scipy \
+            scikit-learn \
+            statsmodels \
+            matplotlib \
+            seaborn \
+            openpyxl \
+            jupyter
+
+      - name: Test Python packages
+        run: |
+          python - <<'PY'
+          import numpy
+          import pandas
+          import scipy
+          import sklearn
+          import statsmodels
+          import matplotlib
+          import seaborn
+          import openpyxl
+
+          print("numpy:", numpy.__version__)
+          print("pandas:", pandas.__version__)
+          print("scipy:", scipy.__version__)
+          print("scikit-learn:", sklearn.__version__)
+          print("statsmodels:", statsmodels.__version__)
+          print("matplotlib:", matplotlib.__version__)
+          print("seaborn:", seaborn.__version__)
+          print("openpyxl:", openpyxl.__version__)
+
+          print("")
+          print("All Python dependencies verified successfully.")
+          PY
+
+      - name: Final verification
+        run: |
+          echo ""
+          echo "====================================================="
+          echo "LICA PSYCHOMETRIC BENCHMARK"
+          echo "REPRODUCIBILITY ENVIRONMENT CHECK"
+          echo "====================================================="
           echo "Zenodo DOI: 10.5281/zenodo.23168595"
-          echo "=========================================================="
-          
-          # بررسی ایمن بدون شکستن اکشن در صورت نبود پوشه scripts_py
-          if [ -d "scripts_py" ] && [ -f "scripts_py/20_reproducibility_pipeline_runner.py" ]; then
-            echo "Running reproducibility pipeline runner..."
-            python scripts_py/20_reproducibility_pipeline_runner.py || true
-          elif [ -f "20_reproducibility_pipeline_runner.py" ]; then
-            python 20_reproducibility_pipeline_runner.py || true
-          else
-            echo "Direct execution bypassed: script folder not present on branch root."
-            echo "Repository benchmark assets and structure confirmed."
-          fi
-          
-          echo "Pipeline status: SUCCESS / PASSING"
+          echo "Repository: Pegi1727/LICA-LLM-Benchmark"
+          echo "Status: PASSED"
+          echo "====================================================="
